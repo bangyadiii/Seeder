@@ -18,19 +18,20 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="{{ route('post.store') }}" method="POST">
+        <form action="{{ Request::is("post/$post->id/edit") ? route('post.update',$post->id) : route('post.create') }}" method="POST">
             @csrf
-
+            @method('put')
             <div class="pl-lg-4">
                 <div class="form">
 
                     <div class="form-group focused">
                         <textarea rows="4" class="form-control form-control-alternative"
-                            placeholder="A few words about you ..." name="content" required> </textarea>
+                            placeholder="A few words about you ..." name="content" > {{ Request::is("post/$post->id/edit") ? $post->content : "" }}  </textarea>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary btn-md mt-3 ">
-                            <i class="bi bi-send-plus mr-1"></i> Post</button>
+                            <i class="bi bi-send-plus mr-1"></i> {{ Request::is("post/$post->id/edit") ? "Edit" : "Post" }}
+                        </button>
                     </div>
                 </div>
             </div>

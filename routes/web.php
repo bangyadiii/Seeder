@@ -17,10 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth')->group(function () {
-    Route::post('post/create', [PostController::class, 'store'])->name('create-post');
+    Route::get("profile/{username}", [UserManageController::class, 'show'])->name('profile');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get("/profile/{username}", [UserManageController::class, 'show']);
+    // Route::get("/profile/following", [UserManageController::class, 'show'])->name('user_following');
+    // Route::get("/profile/followers", [UserManageController::class, 'show'])->name('user_followers');
     Route::get('/', [TimelineController::class, 'index'])->name('timeline');
+    Route::resource('post', PostController::class);
+    Route::get("edit/{user}", [UserManageController::class, 'edit'])->name('edit.profile');
+    Route::put("edit/{user}", [UserManageController::class, 'update'])->name('edit.profile');
 });
 
 

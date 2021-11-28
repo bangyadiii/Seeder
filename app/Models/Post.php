@@ -18,4 +18,9 @@ class Post extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    // public function delete($identifier)
+    // {
+    //     $this->where('identifier', $identifier)->delete();
+    // }
 }

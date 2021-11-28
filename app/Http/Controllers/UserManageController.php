@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Str;
 
@@ -64,7 +65,10 @@ class UserManageController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        return view('showUserV2', ["username" => 'aaa']);
+        $user = User::where('username', $request->username )->get()->first();
+
+        // dd($user);
+        return view('showUserV2', ["user" => $user]);
     }
 
     /**
@@ -75,7 +79,8 @@ class UserManageController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('edit-profile', ["user" => $user]);
+
     }
 
     /**
@@ -87,7 +92,23 @@ class UserManageController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+
+        $validatedData = $request->validate([
+            'name' => "required|string|max:255",
+            'birth_date' => 'required|date',
+            'email' => 'required|email:dns|max:255',
+            'avatar' => 'file|max:2097152|mimes:jpg,bmp,png'
+        ]);
+        if($request->file('avatar')){
+            if($request->oldName){
+                Storage::delete($request->oldName);
+            }
+            $validatedData['avatar'] = $request->file('avatar')->store('avatars');
+        }
+
+
+        User::where("id", $user->id)->update($validatedData);
+        return redirect(route('timeline'));
     }
 
     /**
@@ -98,6 +119,7 @@ class UserManageController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+        return redirect('login');
     }
 }

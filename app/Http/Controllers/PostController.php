@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -35,9 +35,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
-        Auth::user()->makePost($request->content);
+        $validatedData = $request->validate([
+            'content' => "required|string",
+        ]);
+        Auth::user()->makePost($validatedData['content']);
 
         return redirect()->back();
     }
@@ -61,7 +64,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $user = auth()->user();
+
+        return view('edit-post', ['post' => $post, "user" => $user]);
+
     }
 
     /**
@@ -73,7 +79,12 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validatedData = $request->validate([
+            'content' => "required|string",
+        ]);
+        Post::where("id", $post->id)->update($validatedData);
+        return redirect(route('timeline'));
+
     }
 
     /**
@@ -84,6 +95,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->id);
+        return redirect('/');
     }
 }

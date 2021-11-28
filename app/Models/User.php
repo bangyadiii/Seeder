@@ -68,6 +68,10 @@ class User extends Authenticatable
         return $this->following()->save($user);
 
     }
+    public function followers(){
+        return $this->belongsToMany(User::class, "follows" , "following_user_id", "user_id")->withTimestamps();
+
+    }
 
     //method untuk mendapatkan timeline
     public function timeline(){
