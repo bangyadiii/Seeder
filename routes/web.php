@@ -23,9 +23,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [TimelineController::class, 'index'])->name('timeline');
 });
 
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/registrasi', [UserManageController::class, 'create'] )->name('register');
-Route::post('/registrasi', [UserManageController::class, 'store']);
+
+Route::middleware('guest')->group(function () {
+
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::get('/registrasi', [UserManageController::class, 'create'] )->name('register');
+    Route::post('/registrasi', [UserManageController::class, 'store']);
+
+});
 
 

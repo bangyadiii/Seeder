@@ -64,7 +64,7 @@ class UserManageController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        return view('showUser', ["user" => $user]);
+        return view('showUserV2', ["username" => 'aaa']);
     }
 
     /**
