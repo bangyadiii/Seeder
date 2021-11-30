@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
@@ -27,11 +28,9 @@ class UserManageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         return view('registrasi');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +50,9 @@ class UserManageController extends Controller
         if($request->file('avatar')){
             $validatedData['avatar'] = $request->file('avatar')->store('avatars');
         }
+        // else{
+        //     $validatedData['avatar'] = $request->file('https://ui-avatars.com/api/?background=random&name=bangyadiii')->store('avatars');
+        // }
 
         $validatedData['password']  = Hash::make($validatedData['password']);
         User::create($validatedData);
@@ -68,7 +70,7 @@ class UserManageController extends Controller
         $user = User::where('username', $request->username )->get()->first();
 
         // dd($user);
-        return view('showUserV2', ["user" => $user]);
+        return view('profile', ["user" => $user]);
     }
 
     /**
@@ -92,7 +94,6 @@ class UserManageController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         $validatedData = $request->validate([
             'name' => "required|string|max:255",
             'birth_date' => 'required|date',
@@ -119,6 +120,10 @@ class UserManageController extends Controller
      */
     public function destroy(User $user)
     {
+        // $users = User::find($user->id);
+        // $users->following()->detach();
+        DB::table('follows')->where('following_user_id', $user->id)->delete();
+        DB::table('follows')->where('user_id', $user->id)->delete();
         User::destroy($user->id);
         return redirect('login');
     }

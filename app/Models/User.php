@@ -63,13 +63,25 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, "follows" , "user_id", "following_user_id")->withTimestamps();
     }
 
+    //relasi tabel user dengan tabel follow untuk follower
+
+    public function followers(){
+        return $this->belongsToMany(User::class, "follows" , "following_user_id", "user_id")->withTimestamps();
+
+    }
+
     //method untuk memfollow user
     public function follow(User $user){
         return $this->following()->save($user);
 
     }
-    public function followers(){
-        return $this->belongsToMany(User::class, "follows" , "following_user_id", "user_id")->withTimestamps();
+    public function isFollow(User $user){
+        return $this->following()->where('following_user_id', $user->id)->exists();
+
+    }
+    //method untuk unfollow user
+    public function unfollow(User $user){
+        return $this->following()->detach($user);
 
     }
 
@@ -82,5 +94,19 @@ class User extends Authenticatable
                 ->orWhereIn('user_id', $follows)
                 ->latest()
                 ->get();
+    }
+    //relasi tabel
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
+    //bikin komen
+    public function makeComment($comment){
+        $this->post()->create([
+            'content' => $comment,
+            'identifier' => Str::slug(Str::random(15) . $this->id),
+        ]);
+
     }
 }

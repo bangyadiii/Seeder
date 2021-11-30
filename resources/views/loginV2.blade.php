@@ -5,8 +5,8 @@
         <div class="header-body text-center mb-7">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6">
-                    <h1 class="">Heyoo!!</h1>
-                    <p class="text-lead">This is great apps, right?</p>
+                    <h1 class="" style="font-family: 'Fredoka One', cursive; font-size: 2.5rem"> Seeder </h1>
+                    <p class="text-lead">Social network ini sangat keren</p>
                 </div>
             </div>
         </div>
@@ -82,30 +82,7 @@
           </div>
         </div>
       </div>
-      <footer class="py-5">
-        <div class="container">
-          <div class="row align-items-center justify-content-xl-between">
-            <div class="col-xl-6">
-              <div class="copyright text-center text-xl-left text-muted">
-                &copy; 2018 <a href="https://www.creative-tim.com/product/argon-dashboard" class="font-weight-bold ml-1" target="_blank">Argon Dashboard</a>
-              </div>
-            </div>
-            <div class="col-xl-6">
-              <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" clcass="nav-link" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+
     </div>
 
     <!-- Footer -->

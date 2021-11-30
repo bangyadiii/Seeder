@@ -17,22 +17,25 @@
     <h1 class="text-primary">Edit Profile</h1>
     <hr>
     <div class="row">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route("edit.profile", $user->id) }}" enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" action="{{ route("edit.profile", $user->id) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
+            @error('avatar')
+               {{  $message }}
+            @enderror
             <!-- left column -->
             <div class="col-md-3">
                 <div class="text-center">
-                    <input type="hidden" name="oldName"value="{{ asset("storage/" . $user->avatar) }}"
-                    @if(auth()->user()->avatar)
-                        <img src="{{ asset("storage/" . $user->avatar ) }}" alt="mdo" width="45" height="45" class="rounded-circle">
+                    <input type="hidden" name="oldName"value="{{ asset("storage/" . $user->avatar) }}">
+                    @if($user->avatar )
+                        <img src="{{ asset("storage/" . $user->avatar ) }}" id="" class="avatar img-circle img-thumbnail photoProfileWraper" alt="avatar">
                     @else
-                        <a href="{{ route('profile', $user->username ) }}"></a><img src="https://ui-avatars.com/api/?background=random&name={{ $user->username }}" alt="mdo" width="45" height="45" class="rounded-circle">
+                        <img src="https://ui-avatars.com/api/?background=random&name={{ $user->username }}" id="" class="avatar img-circle img-thumbnail photoProfileWraper" alt="avatar">
                     @endif
                     <h6>Upload a photo...</h6>
 
-                    <input id="photoProfil" type="file" name="avatar" class="form-control @error("photo_profile") has-error @enderror" onchange="previewImage()">
-                    @error("photo_profile")
+                    <input id="photoProfil" type="file" name="avatar" class="form-control @error('avatar') has-error @enderror" onchange="previewImage()">
+                    @error("avatar")
                     <span class="help-block">{{ $message }}</span>
                     @enderror
                 </div>
@@ -46,7 +49,7 @@
                 </div>
 
                 <div class="form">
-                    <div class="form-group @error("username") has-error @enderror">
+                    {{-- <div class="form-group @error("username") has-error @enderror">
                         <label class="col-lg-3 control-label">Username</label>
                         <div class="col-lg-8">
                         <input class="form-control has-error" disabled value="{{ old("username", $user->username) }}" type="text" name="username" placeholder="Username">
@@ -54,7 +57,7 @@
                         <span class="help-block">{{ $message }}</span>
                         @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="form-group @error("password") has-error @enderror">
                         <label class="col-lg-3 control-label">Password</label>
                         <div class="col-lg-8">
@@ -85,17 +88,25 @@
                     <div class="form-group @error("birth_date") has-error @enderror">
                         <label class="col-lg-3 control-label">Birth Date</label>
                         <div class="col-lg-8">
-                        <input class="form-control" type="date" name="birth_date" value="{{ old("birth_date", $user->birth_date) }}>
+                        <input class="form-control" type="date" name="birth_date" value="{{ old("birth_date", $user->birth_date) }}">
                         </div>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="col-lg-8">
                             <button class="btn btn-primary" type="submit">Edit Profile</button>
                             <a href="/"><button class="btn btn-primary">Back</button></a>
 
-                        </div>
+                       </div>
                     </div>
                 </div>
+            </div>
+        </form>
+        <form class="form-horizontal" action="{{route('edit.delete', auth()->user()->id)}}" method="post">
+            @csrf
+            @method('delete')
+            <div class="col-md-10"></div>
+            <div class="col-md-2 offset-md-2">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this')">Delete Account</button>
             </div>
         </form>
     </div>
@@ -112,7 +123,8 @@
       height: 200px;
     }
   </style>
-    <script src="js/script.js" type="text/javascript"></script>
+    {{-- <script src="{{ asset('js/app.js') }}" type="text/javascript"></script> --}}
+    <script src="{{ asset('js/script.js') }}" type="text/javascript"></script>
 </body>
 
 </html>

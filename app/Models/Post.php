@@ -19,6 +19,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
     // public function delete($identifier)
     // {
     //     $this->where('identifier', $identifier)->delete();

@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="bg-white shadow rounded overflow-hidden">
-                    <div class="px-4 pt-0 pb-4 cover">
+                    <div class="px-4 pt-0 pb-4 cover">\
                         <div class="media align-items-end profile-head border-2 border-dark">
                             <div class="d-flex flex-column mr-3">
 
@@ -27,11 +27,13 @@
                     </div>
                     <div class="bg-light p-4">
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="btn btn-sm btn-info mr-4">Follow</a>
-                            <a href="#" class="btn btn-sm btn-default">Setting</a>
+
+                            <x-followButton :user='$user'/>
+
+
                         </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <div class="d-flex flex-column justify-content-center text-center mt-3">
+                        <div class="d-flex justify-content-end mt-4">
+                            <div class="d-flex flex-column justify-content-center text-center">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <h3 class="font-weight-bold mb-0 d-block">{{ $user->posts->count() }}</h3>
@@ -51,8 +53,8 @@
                                     Details
                                 </button>
 
-                                <!-- Modal -->
-                                <x-modal/>
+                                <!-- statistic -->
+                                <x-statistic :user='$user'/>
                             </div>
 
                         </div>
@@ -83,7 +85,7 @@
                             </div>
                             <div class="card-body bg-light">
                                 <section class="timeline">
-                                    @foreach ($user->posts as $post)
+                                    @foreach ($user->posts->sortDesc() as $post)
                                         <div class="my-2">
                                             <x-post :post='$post'/>
                                         </div>
@@ -100,10 +102,8 @@
 
             </div>
         </div>
+
     </div>
-
-
-
 
 
 @endsection

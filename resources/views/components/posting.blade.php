@@ -26,7 +26,7 @@
 
                     <div class="form-group focused">
                         <textarea rows="4" class="form-control form-control-alternative"
-                            placeholder="A few words about you ..." name="content" required> </textarea>
+                            placeholder="What are you thinking?" name="content" required></textarea>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary btn-md mt-3 ">

@@ -1,5 +1,5 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
-
+@import "~jquery-ui/themes/base/all.css";
 :root {
     --blue: #5e72e4;
     --indigo: #5603ad;
@@ -634,6 +634,18 @@ textarea.form-control {
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08),
         none;
 }
+.btn-outline-info {
+    border-color: #11cdef;
+    color: #11cdef;
+    background-color: var(--lighter);
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.btn-outline-info:active {
+    color: #fff;
+    border-color: #11cdef;
+    background-color: #11cdef;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
 
 .btn-primary {
     color: #fff;
@@ -1052,7 +1064,12 @@ textarea.form-control {
 .card-header:first-child {
     border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
 }
-
+.card-footer {
+    margin-bottom: 0;
+    padding: 1.25rem 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+}
 @keyframes progress-bar-stripes {
     from {
         background-position: 1rem 0;
