@@ -11,7 +11,6 @@
   <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
-
 <body>
   <div class="container bootstrap snippets bootdey">
     <h1 class="text-primary">Edit Profile</h1>

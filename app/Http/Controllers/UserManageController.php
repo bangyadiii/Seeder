@@ -125,6 +125,10 @@ class UserManageController extends Controller
         DB::table('follows')->where('following_user_id', $user->id)->delete();
         DB::table('follows')->where('user_id', $user->id)->delete();
         User::destroy($user->id);
+        Simp
+
         return redirect('login');
+
+
     }
 }
