@@ -46,5 +46,5 @@ Route::middleware('guest')->group(function () {
 
 });
 
-// Route::get("test/view1", [Tesview::class, 'tesview1']);
+Route::get("test/view1", [Tesview::class, 'tesview1']);
 
